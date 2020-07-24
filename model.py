@@ -23,6 +23,14 @@ def save_doc_as_file(uid=None,code=None):
         fd.write(code)
     return uid
 
+def save_lang_as_file(uid,lang='Python'):
+    '''Crée/Enregistre le document sous la forme d'un fichier
+    data/uid en .lang Return the file name.
+    '''
+    with open('data/lang/{}.lang'.format(uid),'w') as fd:
+        fd.write(lang)
+    return uid
+
 def read_doc_as_file(uid):
     '''Lit le document data/uid'''
     try:
@@ -31,6 +39,16 @@ def read_doc_as_file(uid):
         return code
     except FileNotFoundError:
         return None
+
+def read_lang_as_file(uid):
+    '''Lit le document data/uid en .lang'''
+    try:
+        with open('data/lang/{}.lang'.format(uid)) as fd:
+            lang = fd.read()
+        return lang
+    except FileNotFoundError:
+        return None
+
 
 def get_last_entries_from_files(n=10,nlines=10):
     entries = os.scandir('data')
@@ -47,6 +65,7 @@ def get_last_entries_from_files(n=10,nlines=10):
             code = ''.join(( fd.readline() for i in range(nlines) ))
             if fd.readline():
                 code += '\n...'
-        d.append({ 'uid':e.name, 'code':code })
+        lang = read_lang_as_file(e.name)
+        d.append({ 'uid':e.name, 'code':code, 'lang':lang })
     return d
 
