@@ -11,25 +11,23 @@
 	   {% endif %}
 	   <p align=center>
 	   <form method="POST" action="/publish" enctypwe="multipart/form-data">
+	   Langage: <input name='lang' value="{{ lang }}">
+		   <select name="lang">
+               {% for lang in languages %}
+               <option value="{{ lang }}" {% if lang == code.lang %}selected{% endif %}>{{ lang }}</option>
+			   {% endfor %}
+		   </select>
+
 		   <table>
 		    <tr>
-				<td>
-				<select name="lang">
-					<option value="Python" {% if 'Python' == lang %} selected {% endif %}>Python</option>
-					<option value="JS" {% if 'JS' == lang %} selected {% endif %}>Javascript</option>
-					<option value="HTML" {% if 'HTML' == lang %} selected {% endif %}>HTML</option>
-					<option value="PHP" {% if 'PHP' == lang %} selected {% endif %}>PHP</option>
-					<option value="C" {% if 'C' == lang %} selected {% endif %}>C</option>
-				</select>
-				</td>
-		     	<td>
-		      	<textarea name="code" rows=20 cols=100>{{ code }}</textarea><br/>
-		     	</td>
-		     	<td valign=top>
-		       		<input type="hidden" name="uid" value="{{ uid }}">
-		       		<button type="submit" name="submit" value="edit">Save</button><br/>
-		       		<button type="submit" name="submit" value="view">Save &amp; View</button>
-		     	</td>
+		     <td>
+		      <textarea name="code" rows=20 cols=100>{{ code }}</textarea><br/>
+		     </td>
+		     <td valign=top>
+		       <input type="hidden" name="uid" value="{{ uid }}">
+		       <button type="submit" name="submit" value="edit">Save</button><br/>
+		       <button type="submit" name="submit" value="view">Save &amp; View</button>
+		     </td>
 		    </tr>
 		   </table>
 	   </form>
